@@ -1,7 +1,9 @@
 package com.wordcards.widget.widget
 
 import androidx.compose.ui.graphics.Color
-import androidx.glance.unit.ColorProvider
+// Пара день/ночь живёт в appwidget-варианте ColorProvider; тот, что в
+// androidx.glance.unit, принимает только один цвет.
+import androidx.glance.appwidget.unit.ColorProvider
 
 /**
  * Палитра из макета. Заданы явными парами день/ночь, а не ссылками на ресурсы:

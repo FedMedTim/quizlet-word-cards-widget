@@ -12,7 +12,9 @@ import androidx.glance.ImageProvider
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.LinearProgressIndicator
 import androidx.glance.appwidget.action.actionRunCallback
-import androidx.glance.action.actionStartActivity
+// Перегрузка, принимающая Intent, есть только в appwidget-пакете:
+// androidx.glance.action знает про ComponentName, но не про Intent.
+import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
