@@ -16,10 +16,33 @@ android {
         versionName = "1.0"
     }
 
+    // Ключ подписи приходит из окружения: локально его нет, в CI он
+    // разворачивается из секрета. Если ключа нет, конфигурация не создаётся и
+    // release собирается отладочной подписью — так сборка не ломается там,
+    // где секретов не видно (например, в форке).
+    val keystorePath = System.getenv("ANDROID_KEYSTORE_PATH")
+    val hasKeystore = !keystorePath.isNullOrBlank() && file(keystorePath).exists()
+
+    signingConfigs {
+        if (hasKeystore) {
+            create("release") {
+                storeFile = file(keystorePath!!)
+                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = if (hasKeystore) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 
