@@ -40,7 +40,9 @@ jobs:
       - name: Развернуть ключ подписи
         if: env.ANDROID_KEYSTORE_BASE64 != ''
         run: |
-          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/wordcards.jks"
+          # tr снимает переводы строк и пробелы: в секрет легко занести лишний
+          # \r при заливке из Windows, а base64 -d на нём падает.
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | tr -d '\r\n \t' | base64 -d > "$RUNNER_TEMP/wordcards.jks"
           echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/wordcards.jks" >> "$GITHUB_ENV"
 
       - name: Собрать release APK
