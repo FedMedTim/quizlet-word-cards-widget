@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Превью в списке виджетов лаунчера. Статичное, данных ещё нет. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/card_surface"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_stripe"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="ADVANCED ENGLI…"
+            android:textColor="@color/on_accent"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_volume" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="8dp"
+        android:text="Ubiquitous"
+        android:textColor="@color/ink"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/progress_track" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp"
+        android:text="12 из 40 слов"
+        android:textColor="@color/ink"
+        android:textSize="9sp"
+        android:textStyle="bold" />
+</LinearLayout>

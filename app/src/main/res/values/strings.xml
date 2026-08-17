@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Карточки слов</string>
+    <string name="widget_small_label">Карточка слова 2×2</string>
+    <string name="widget_wide_label">Карточка слова 4×2</string>
+    <string name="widget_small_description">Слово из набора Quizlet. Тап переворачивает карточку.</string>
+    <string name="widget_wide_description">Слово, транскрипция и озвучка из набора Quizlet.</string>
+</resources>

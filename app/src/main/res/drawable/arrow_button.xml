@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Квадратная красная кнопка «следующее слово» с чёрной обводкой, как на 4×2. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/accent" />
+    <stroke android:width="2dp" android:color="@color/ink" />
+    <corners android:radius="2dp" />
+</shape>

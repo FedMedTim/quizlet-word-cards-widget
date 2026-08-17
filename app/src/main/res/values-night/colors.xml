@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#F2452F</color>
+    <color name="ink">#F5F3F0</color>
+    <color name="card_bg">#171719</color>
+    <color name="page_bg">#0E0E10</color>
+    <color name="track">#33333A</color>
+    <color name="muted">#9A9AA0</color>
+    <color name="on_accent">#FFFFFF</color>
+</resources>
