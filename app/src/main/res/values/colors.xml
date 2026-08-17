@@ -8,4 +8,6 @@
     <color name="track">#D8D5D0</color>
     <color name="muted">#6B6B6B</color>
     <color name="on_accent">#FFFFFF</color>
+    <!-- Подпись на красной заливке перевёрнутой карточки. -->
+    <color name="on_flipped_muted">#CCFFFFFF</color>
 </resources>
