@@ -26,12 +26,13 @@ class QuizletRepository(context: Context) {
             return QuizletResult.Error(Reason.FORBIDDEN, "Нужен вход в Quizlet")
         }
 
-        val termsResult = client.fetchTerms(setId)
-        if (termsResult is QuizletResult.Error) {
-            settings.lastSyncFailed = true
-            return termsResult
+        val terms = when (val result = client.fetchTerms(setId)) {
+            is QuizletResult.Error -> {
+                settings.lastSyncFailed = true
+                return result
+            }
+            is QuizletResult.Ok -> result.value
         }
-        val terms = (termsResult as QuizletResult.Ok).value
 
         // Название набора — не критично: без него берём прошлое или заглушку.
         val meta = client.fetchSetMeta(setId).valueOrNull()
