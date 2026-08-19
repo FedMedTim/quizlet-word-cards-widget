@@ -9,6 +9,7 @@ import androidx.glance.appwidget.action.ActionCallback
 import com.wordcards.widget.WordCardsApp
 import com.wordcards.widget.data.AppDatabase
 import com.wordcards.widget.data.Settings
+import kotlinx.coroutines.delay
 import java.util.Locale
 
 private suspend fun widgetIdOf(context: Context, glanceId: GlanceId): Int =
@@ -41,7 +42,7 @@ class FlipAction : ActionCallback {
             }
         }
 
-        WidgetUpdater.refreshAll(context)
+        WidgetUpdater.refreshOne(context, glanceId)
     }
 }
 
@@ -61,7 +62,7 @@ class NextWordAction : ActionCallback {
         settings.setIndex(widgetId, (settings.indexFor(widgetId) + 1) % total)
         settings.setFlipped(widgetId, false)
         settings.touchStreak()
-        WidgetUpdater.refreshAll(context)
+        WidgetUpdater.refreshOne(context, glanceId)
     }
 }
 
@@ -78,7 +79,7 @@ class SpeakAction : ActionCallback {
         parameters: ActionParameters
     ) {
         val app = context.applicationContext as? WordCardsApp ?: return
-        val engine = app.tts?.takeIf { app.ttsReady } ?: return
+        val engine = awaitTts(app) ?: return
 
         val widgetId = widgetIdOf(context, glanceId)
         val settings = Settings(context)
@@ -98,4 +99,19 @@ class SpeakAction : ActionCallback {
         }
         engine.speak(text, TextToSpeech.QUEUE_FLUSH, null, "wordcard-$widgetId")
     }
+}
+
+/**
+ * Ждёт готовности движка озвучки.
+ *
+ * Инициализация занимает сотни миллисекунд, и на холодном процессе первый тап
+ * приходил раньше — звук молча не воспроизводился. Теперь нажатие ждёт движок,
+ * а сдаётся только если он так и не поднялся.
+ */
+private suspend fun awaitTts(app: WordCardsApp): TextToSpeech? {
+    repeat(20) {
+        if (app.ttsReady) return app.tts
+        delay(100)
+    }
+    return null
 }

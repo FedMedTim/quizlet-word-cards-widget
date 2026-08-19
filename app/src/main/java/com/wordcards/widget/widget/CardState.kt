@@ -3,6 +3,7 @@ package com.wordcards.widget.widget
 import android.content.Context
 import com.wordcards.widget.data.AppDatabase
 import com.wordcards.widget.data.Settings
+import com.wordcards.widget.quizlet.QuizletWebClient
 import java.util.concurrent.TimeUnit
 
 /**
@@ -45,8 +46,10 @@ sealed interface CardState {
             val total = dao.countTerms(setId)
 
             if (total == 0) {
-                val repository = com.wordcards.widget.quizlet.QuizletRepository(context)
-                return if (repository.hasSession()) Empty(set.title) else NeedsLogin(set.title)
+                // Проверка кук поднимает подсистему WebView и стоит дорого,
+                // поэтому выполняется только когда рисовать всё равно нечего.
+                val hasSession = QuizletWebClient(context).hasSessionCookies()
+                return if (hasSession) Empty(set.title) else NeedsLogin(set.title)
             }
 
             // Индекс мог уехать за пределы набора, если карточки удалили в Quizlet.

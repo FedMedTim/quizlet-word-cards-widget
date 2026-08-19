@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Красная плашка-заголовок: скругления только сверху, чтобы стыковаться с рамкой карточки. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/accent" />
-    <corners
-        android:topLeftRadius="1dp"
-        android:topRightRadius="1dp"
-        android:bottomLeftRadius="0dp"
-        android:bottomRightRadius="0dp" />
-</shape>
+<!-- Плашка-заголовок несёт верхнюю пару скобок: она перекрывает верх карточки,
+     поэтому запекать их в фон корпуса бессмысленно — их не было бы видно. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/accent" />
+            <corners
+                android:topLeftRadius="1dp"
+                android:topRightRadius="1dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/bracket_tl_light"
+        android:gravity="top|left"
+        android:width="10dp"
+        android:height="10dp"
+        android:left="4dp"
+        android:top="4dp" />
+    <item
+        android:drawable="@drawable/bracket_tr_light"
+        android:gravity="top|right"
+        android:width="10dp"
+        android:height="10dp"
+        android:right="4dp"
+        android:top="4dp" />
+</layer-list>

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Угловая скобка из макета. Рисуется вектором фиксированного размера и
-     ставится в угол карточки, поэтому не растягивается вместе с виджетом. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="12dp"
     android:height="12dp"
@@ -8,7 +6,7 @@
     android:viewportHeight="12">
     <path
         android:pathData="M11,1 L1,1 L1,11"
-        android:strokeColor="#FF111111"
+        android:strokeColor="@color/ink"
         android:strokeWidth="2"
         android:strokeLineCap="square" />
 </vector>

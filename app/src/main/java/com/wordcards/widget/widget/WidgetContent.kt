@@ -44,7 +44,6 @@ import com.wordcards.widget.ui.ConfigActivity
  */
 
 private const val CARD_INSET = 2
-private const val BRACKET_INSET = 5
 
 @Composable
 fun CardSurface(flipped: Boolean, content: @Composable ColumnScope.() -> Unit) {
@@ -60,41 +59,6 @@ fun CardSurface(flipped: Boolean, content: @Composable ColumnScope.() -> Unit) {
         Column(modifier = GlanceModifier.fillMaxSize().padding(CARD_INSET.dp)) {
             content()
         }
-        CornerBrackets(flipped)
-    }
-}
-
-/**
- * Угловые скобки из макета.
- *
- * Каждая — вектор фиксированного размера в своём слое поверх карточки, поэтому
- * при любом размере виджета они остаются одинаковыми, а не растягиваются.
- * Слои не кликабельны, поэтому тап проваливается сквозь них на тело карточки.
- */
-@Composable
-private fun CornerBrackets(flipped: Boolean) {
-    // Верхняя пара ложится на цветную плашку, нижняя — на тело карточки.
-    val top = WidgetTheme.onAccent
-    val bottom = if (flipped) WidgetTheme.onFlipped else WidgetTheme.ink
-
-    Bracket(R.drawable.bracket_tl, Alignment.TopStart, top)
-    Bracket(R.drawable.bracket_tr, Alignment.TopEnd, top)
-    Bracket(R.drawable.bracket_bl, Alignment.BottomStart, bottom)
-    Bracket(R.drawable.bracket_br, Alignment.BottomEnd, bottom)
-}
-
-@Composable
-private fun Bracket(resId: Int, alignment: Alignment, tint: ColorProvider) {
-    Box(
-        modifier = GlanceModifier.fillMaxSize().padding(BRACKET_INSET.dp),
-        contentAlignment = alignment
-    ) {
-        Image(
-            provider = ImageProvider(resId),
-            contentDescription = null,
-            colorFilter = ColorFilter.tint(tint),
-            modifier = GlanceModifier.size(9.dp)
-        )
     }
 }
 
@@ -119,7 +83,7 @@ fun HeaderStripe(
                     if (flipped) R.drawable.header_stripe_dark else R.drawable.header_stripe
                 )
             )
-            .padding(horizontal = if (compact) 7.dp else 10.dp, vertical = 4.dp)
+            .padding(horizontal = if (compact) 7.dp else 10.dp, vertical = 3.dp)
             .then(onTapNext),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -146,14 +110,21 @@ fun HeaderStripe(
         )
 
         if (!flipped && showAudio) {
-            Image(
-                provider = ImageProvider(R.drawable.ic_volume),
-                contentDescription = "Озвучить",
-                colorFilter = ColorFilter.tint(WidgetTheme.onAccent),
+            // Нажатие ловит рамка вокруг значка, а не сам значок: 12dp —
+            // вчетверо меньше минимальной зоны нажатия, в такую не попасть.
+            Box(
                 modifier = GlanceModifier
-                    .size(if (compact) 12.dp else 13.dp)
-                    .clickable(actionRunCallback<SpeakAction>())
-            )
+                    .padding(horizontal = 8.dp, vertical = 6.dp)
+                    .clickable(actionRunCallback<SpeakAction>()),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    provider = ImageProvider(R.drawable.ic_volume),
+                    contentDescription = "Озвучить",
+                    colorFilter = ColorFilter.tint(WidgetTheme.onAccent),
+                    modifier = GlanceModifier.size(if (compact) 13.dp else 14.dp)
+                )
+            }
         }
 
         if (!flipped && streak != null && streak > 0) {

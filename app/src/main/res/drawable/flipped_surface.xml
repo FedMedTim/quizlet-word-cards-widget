@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Обратная сторона: сплошная красная заливка с той же чёрной рамкой. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/accent" />
-    <stroke android:width="2dp" android:color="@color/ink" />
-    <corners android:radius="3dp" />
-</shape>
+<!-- Обратная сторона: красная заливка, та же рамка, скобки белые. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/accent" />
+            <stroke android:width="2dp" android:color="@color/ink" />
+            <corners android:radius="3dp" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/bracket_bl_light"
+        android:gravity="bottom|left"
+        android:width="10dp"
+        android:height="10dp"
+        android:left="4dp"
+        android:bottom="4dp" />
+    <item
+        android:drawable="@drawable/bracket_br_light"
+        android:gravity="bottom|right"
+        android:width="10dp"
+        android:height="10dp"
+        android:right="4dp"
+        android:bottom="4dp" />
+</layer-list>

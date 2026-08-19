@@ -104,9 +104,11 @@ class WideWidget : GlanceAppWidget() {
 
                 Spacer(modifier = GlanceModifier.width(8.dp))
 
+                // 44dp — близко к минимальной зоне нажатия в Android. Прежние
+                // 34dp визуально совпадали с макетом, но мимо них легко промахнуться.
                 Box(
                     modifier = GlanceModifier
-                        .size(34.dp)
+                        .size(44.dp)
                         .background(ImageProvider(R.drawable.arrow_button))
                         .clickable(actionRunCallback<NextWordAction>()),
                     contentAlignment = Alignment.Center
@@ -115,7 +117,7 @@ class WideWidget : GlanceAppWidget() {
                         provider = ImageProvider(R.drawable.ic_chevron_right),
                         contentDescription = "Следующее слово",
                         colorFilter = ColorFilter.tint(WidgetTheme.onAccent),
-                        modifier = GlanceModifier.size(18.dp)
+                        modifier = GlanceModifier.size(20.dp)
                     )
                 }
             }
